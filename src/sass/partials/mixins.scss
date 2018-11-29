@@ -1,0 +1,46 @@
+@mixin bar {
+    background-color: white;
+    border: 1.5px solid $color-light;
+    border-radius: 10px;
+}
+
+@mixin textarea($area, $font-size, $margintop, $height) {
+    grid-area: $area;
+    height: $height;
+    font-size: $font-size;
+    margin-top: $margintop;
+    overflow: hidden;
+    border: none;
+    box-sizing: border-box;
+    word-break: break-all;
+    outline: none;
+    background-color: $color-back;
+    color: $color-bold;
+    
+}
+
+@mixin multiLineEllipsis($lineHeight: 1.2em, $lineCount: 1) {
+    overflow: hidden;
+    position: relative;
+    line-height: $lineHeight;
+    max-height: $lineHeight * $lineCount;
+    text-align: justify;
+    margin-right: -1em;
+    padding-right: 1em;
+
+    &:before {
+        content: '...';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        right: 0;
+        width: 1em;
+        height: 1em;
+        margin-top: 0.2em;
+    }
+}

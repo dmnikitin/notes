@@ -1,0 +1,31 @@
+@import 'sass/reset.css';
+@import 'sass/partials/mixins';
+@import 'sass/partials/variables';
+@import 'sass/modules/left/left';
+@import 'sass/modules/right/right';
+@import 'sass/modules/right/note';
+
+*{
+  box-sizing: border-box; 
+  scroll-behavior: smooth;
+  outline: 0 !important;
+  height: 100%;
+}
+
+.main {
+  display: grid;
+  background-color: $color-back;
+  height: 100%;
+  grid-template-columns: 30% auto 5%;
+}
+
+@media (max-width: 800px) {
+  .main {
+  display: grid;
+  grid-template-columns: 100%;
+  }
+  .right {
+    display: none;
+  }
+    
+}

@@ -1,0 +1,105 @@
+.notePreview {
+    display: grid;
+    grid-template-columns: 30% auto;
+    border: $border;
+    border-top: 0;
+    border-right: 0;
+    list-style-type: none;
+    user-select: none;
+    &:hover {
+        background-color: white;
+
+    }
+
+    .metaPreview {
+        color: $color-bold;
+        font-weight: bold;
+        display: grid;
+        grid-template-areas:
+            'data data . . .'
+            'fa-star fa-trash . . .';
+        text-align: center;
+
+        .datePreviewMax {
+            margin-left: 10px;
+
+            h2 {
+                font-size: 30px;
+                margin: 0px;
+                width: 100%;
+                height: 50px;
+                padding-top: 10px;
+
+            }
+
+            h3 {
+                font-size: 15px;
+                margin: 0px;
+                width: 100%;
+                height: 20px;
+
+            }
+
+            h4 {
+                font-size: 15px;
+                margin: 0px;
+                width: 100%;
+                height: 20px;
+            }
+        }
+
+
+    }
+
+    .metaPreviewHover {
+        @extend .metaPreview;
+
+        .fa {
+            color: $color-medium;
+            font-size: 25px;
+
+            &:hover {
+                color: $color-bold;
+            }
+        }
+
+        .fa-star-o,
+        .fa-star {
+            grid-area: fa-star;
+            padding-left: 15px;
+            padding-right: 10px;
+            padding-bottom: 15px;
+        }
+
+        .fa-trash-o {
+            grid-area: fa-trash;
+            padding-right: 15px;
+        }
+    }
+
+
+    .noteContentPreview {
+        padding-top: 15px;
+        padding-left: 25px;
+
+        h2 {
+            font-weight: bold;
+            color: $color-bold;
+            font-size: 18px;
+            height: 35%;
+            margin: 0 auto;
+
+        }
+
+        p {
+            @include multiLineEllipsis($lineHeight: 13px, $lineCount: 3.0);
+
+            width: 95%;
+            height: 65%;
+            color: $color-medium;
+            margin: 0 auto;
+            margin-left: 0px;
+            padding-top: 10px;
+        }
+    }
+}
