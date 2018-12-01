@@ -9,7 +9,6 @@ export default class Note extends React.Component {
         notes: PropTypes.array,
         currentNote: PropTypes.shape({
             name: PropTypes.string,
-            display: PropTypes.bool,
             content: PropTypes.string,
             priority: PropTypes.bool,
             location: PropTypes.string,
@@ -17,37 +16,23 @@ export default class Note extends React.Component {
             index: PropTypes.number
         }),
         changeNotesList: PropTypes.func.isRequired,
-        toggleDisplay: PropTypes.func
-
+        
     }
 
     state = {
     	html: this.props.currentNote.content
     }
 
-    handleChange = (e) => {
-
-        let { notes, currentNote, changeNotesList } = this.props;
-        const thisNote = notes.findIndex((e) => e.index === currentNote.index);
-        let change = currentNote;
-        console.log(e.target.innerHTML)
-        e.target.className === "note-name" ? change.name = e.target.value : change.content = e.target.value;
-        changeNotesList('changeNote', change, thisNote);
-
-    }
-
-    handleHTML = (e) => {
-
-    	this.setState({html: e.target.value});
-    	console.log(this.state)
-
-    	let { notes, currentNote, changeNotesList } = this.props;
-        const thisNote = notes.findIndex((e) => e.index === currentNote.index);
-        let change = currentNote;
-        change.content = e.target.value;
-        changeNotesList('changeNote', change, thisNote);
-
-
+    handleChange = (e, index) => {
+		let { notes, currentNote, changeNotesList } = this.props;
+		let change = currentNote;	
+		if (index === "name") {
+			change.name = e.target.value} 
+		else if (index === "content") {
+			this.setState({html: e.data});
+			change.content = e.data;
+		}  
+		changeNotesList('changeNote', change, this.props.currentNote.index);
     }
 
     render() {
@@ -57,11 +42,9 @@ export default class Note extends React.Component {
             	<Toolbar content={this.props.currentNote.content}/>
 			    <h2 className="note-date">{this.props.currentNote.date}</h2>
 			    <h2 className="note-location">{this.props.currentNote.location}</h2>
-			    <textarea className="note-name" onChange={this.handleChange} value={this.props.currentNote.name}>  </textarea>
-   				
-   				<ContentEditable html={this.props.currentNote.content} onChange={this.handleHTML} content={this.props.currentNote.content}/>
-
-   				
+			    <textarea className="note-name" onChange={()=>this.handleChange(event, "name")} value={this.props.currentNote.name}>  </textarea>
+   				<ContentEditable html={this.props.currentNote.content} onChange={this.handleChange}/>
+	
    			</div>
         )
     }

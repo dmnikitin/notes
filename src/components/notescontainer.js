@@ -5,7 +5,7 @@ import NotePreview    from './notepreview.js';
 const NotesContainer = ({notes, changeNotesList, toggleDisplay}) => {
 	
 	if (notes.length!=0) {
-	const allNotes = notes.map((item, key) => <NotePreview key={key} notes={notes} currentNote={item} changeNotesList={changeNotesList} toggleDisplay={toggleDisplay}/>)
+	const allNotes = notes.map((item) => <NotePreview key={item.index} notes={notes} currentNote={item} changeNotesList={changeNotesList} toggleDisplay={toggleDisplay}/>)
 	return  <div className="notesContainer">{allNotes}</div>
 		}
 		else {return null}

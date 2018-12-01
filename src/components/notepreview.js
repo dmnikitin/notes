@@ -8,7 +8,6 @@ export default class NotePreview extends React.Component {
         notes: PropTypes.array,
         currentNote: PropTypes.shape({
             name: PropTypes.string,
-            display: PropTypes.bool,
             content: PropTypes.string,
             priority: PropTypes.bool,
             location: PropTypes.string,
@@ -20,33 +19,24 @@ export default class NotePreview extends React.Component {
 
     }
 
-
-    state = {
-        isHovering: false
+    state = { 
+        isHovering: false 
     }
 
-    deleteNote = () => {
-        const thisNote = this.props.notes.findIndex((e) => e.index === this.props.currentNote.index);
-        this.props.changeNotesList('removeNote', null, thisNote);
-        this.props.toggleDisplay();
-    }
-
+    deleteNote = () => this.props.changeNotesList('removeNote', null, this.props.currentNote.index)
+    
     priorityChange = () => {
-        const thisNote = this.props.notes.findIndex((e) => e.index === this.props.currentNote.index);
-        const change = { name: this.props.currentNote.name, date: this.props.currentNote.date, priority: !this.props.currentNote.priority, location: this.props.currentNote.location, content: this.props.currentNote.content, index: this.props.currentNote.index, display: this.props.currentNote.display }
-        this.props.changeNotesList('changeNote', change, thisNote);
+        const change = this.props.currentNote
+        change.priority = !this.props.currentNote.priority;
+        this.props.changeNotesList('changeNote', change, change.index);
+        this.displayNote()
     }
 
-    displayNote = () => {
-        const thisNote = this.props.notes.findIndex((e) => e.index === this.props.currentNote.index);
-        this.props.toggleDisplay(thisNote)
-    }
-
+    displayNote = () => this.props.toggleDisplay(this.props.currentNote.index)
+    
     handleMouseHover = () => this.setState(this.toggleHoverState)
 
-
     toggleHoverState = (state) => { return { isHovering: !state.isHovering } }
-
 
     render() {
         let prioritySpan, priorityBorder;
