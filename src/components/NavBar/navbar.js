@@ -1,24 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { today } from '../helpers/helpers.js';
+import { today } from '../../helpers/helpers.js';
 
 let location;
 
-
 export default class Navbar extends React.Component {
-
-  
 
     static propTypes = {
         notes: PropTypes.array,
         changeNotesList: PropTypes.func,
         searchNotes: PropTypes.func
-
     }
-
-    //  state = {
-    //     searchResults: ""
-    // }
 
     componentDidMount() {
 
@@ -39,21 +31,21 @@ export default class Navbar extends React.Component {
                 })
         }
         fetchRequest();
-
     }
 
     addNote = () => {
         const newNote = { name: "Default note name", content: "Default note content", priority: false, location: location, date: today, index: Date.now() };
         this.props.changeNotesList('addNote', newNote, null);
+        this.props.toggleDisplay(newNote.index)
     }
 
-    findNotes = (e) => {
-              
-        this.props.searchNotes(e.target.value)
-    }
+    findNotes = (e) => this.props.searchNotes(e.target.value)
 
+    selectList = () => {
+        
+    }
+   
     render() {
-
         return (
             <div className="navbar"> 
 				<div className="search-container">
@@ -61,7 +53,8 @@ export default class Navbar extends React.Component {
 						<input type="text" id="searchbar"  placeholder="Search.." name="search" onChange={this.findNotes}/>
 					</form>
 				</div>
-				<span id="addnote" className="fa fa-pencil-square-o" onClick={this.addNote}></span>
+                <span id="selectList" className="fa fa-reorder" onClick={this.selectList}></span>
+				<span id="addnote" className="fa fa-plus" onClick={this.addNote}></span>
 			</div>
         )
     }

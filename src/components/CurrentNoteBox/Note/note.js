@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Toolbar from './toolbar.js';
+import ToolbarMeta from './ToolbarMeta/toolbarMeta.js';
+import ToolbarMarkdown from './ToolbarMarkdown/toolbarMarkdown.js'
 import ContentEditable from './contentEditable.js';
+
 
 export default class Note extends React.Component {
 
@@ -20,7 +22,7 @@ export default class Note extends React.Component {
     }
 
     state = {
-    	html: this.props.currentNote.content
+    	html: this.props.currentNote.content,
     }
 
     handleChange = (e, index) => {
@@ -35,17 +37,28 @@ export default class Note extends React.Component {
 		changeNotesList('changeNote', change, this.props.currentNote.index);
     }
 
+    getMarkdownText = () => {
+
+    }
+
+    
+
     render() {
 
         return (
+               
             <div className="note"> 
-            	<Toolbar content={this.props.currentNote.content}/>
-			    <h2 className="note-date">{this.props.currentNote.date}</h2>
-			    <h2 className="note-location">{this.props.currentNote.location}</h2>
-			    <textarea className="note-name" onChange={()=>this.handleChange(event, "name")} value={this.props.currentNote.name}>  </textarea>
-   				<ContentEditable html={this.props.currentNote.content} onChange={this.handleChange}/>
-	
-   			</div>
+            
+             
+                    <ToolbarMeta currentNote={this.props.currentNote} changeNotesList={this.props.changeNotesList}/>
+    			  
+                    <textarea className="note-name" onChange={()=>this.handleChange(event, "name")} value={this.props.currentNote.name}>  </textarea>
+       				<ContentEditable currentNote={this.props.currentNote} html={this.props.currentNote.content} onChange={this.handleChange}/>
+    	            <ToolbarMarkdown currentNote={this.props.currentNote} changeNotesList={this.props.changeNotesList}/>
+              
+              
+            </div>
+
         )
     }
 }

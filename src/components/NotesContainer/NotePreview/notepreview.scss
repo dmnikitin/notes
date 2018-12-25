@@ -1,3 +1,6 @@
+@import '../../../sass/mixins';
+@import '../../../sass/variables';
+
 .notePreview {
     display: grid;
     grid-template-columns: 30% auto;
@@ -6,23 +9,22 @@
     border-right: 0;
     list-style-type: none;
     user-select: none;
+    background-color: white;
     &:hover {
-        background-color: white;
+        background-color:  $color-back;
 
     }
-
+    
     .metaPreview {
         color: $color-bold;
         font-weight: bold;
         display: grid;
-        grid-template-areas:
-            'data data . . .'
-            'fa-star fa-trash . . .';
+        
         text-align: center;
 
         .datePreviewMax {
             margin-left: 10px;
-
+   
             h2 {
                 font-size: 30px;
                 margin: 0px;
@@ -51,37 +53,10 @@
 
     }
 
-    .metaPreviewHover {
-        @extend .metaPreview;
-
-        .fa {
-            color: $color-medium;
-            font-size: 25px;
-
-            &:hover {
-                color: $color-bold;
-            }
-        }
-
-        .fa-star-o,
-        .fa-star {
-            grid-area: fa-star;
-            padding-left: 15px;
-            padding-right: 10px;
-            padding-bottom: 15px;
-        }
-
-        .fa-trash-o {
-            grid-area: fa-trash;
-            padding-right: 15px;
-        }
-    }
-
-
+   
     .noteContentPreview {
         padding-top: 15px;
         padding-left: 25px;
-
         h2 {
             font-weight: bold;
             color: $color-bold;
@@ -102,4 +77,7 @@
             padding-top: 10px;
         }
     }
+  
 }
+
+

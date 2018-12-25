@@ -1,0 +1,39 @@
+@import 'reset.css';
+@import 'mixins';
+@import 'variables';
+
+@import '../components/NavBar/navbar';
+@import '../components/CurrentNoteBox/CurrentNoteBox';
+@import '../components/NotesContainer/notecontainer';
+
+
+*{
+  box-sizing: border-box; 
+  scroll-behavior: smooth;
+  outline: 0 !important;
+  height: 100%;
+}
+
+.main {
+  display: grid;
+  background-color: $color-back;
+  height: 100%;
+  grid-template-columns: 30% auto 5%;
+
+  .left {
+    display: grid;
+    grid-template-rows: 50px 300px 300px;
+     grid-auto-flow: row dense;
+  }
+}
+
+@media (max-width: 800px) {
+  .main {
+  display: grid;
+  grid-template-columns: 100%;
+  }
+  .currentNoteBox {
+    display: none;
+  }
+    
+}

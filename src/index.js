@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import Navbar from './components/navbar.js';
-import NotesContainer from './components/notescontainer.js';
-import Note from './components/note.js';
+import Navbar from './components/NavBar/navbar.js';
+import NotesContainer from './components/NotesContainer/notescontainer.js';
+import CurrentNoteBox from './components/CurrentNoteBox/currentNoteBox.js';
 import { arraySort } from './helpers/helpers.js';
-import './styles.scss';
+import './sass/styles.scss';
+
+import {
+    CSSTransition,
+    TransitionGroup,
+} from 'react-transition-group';
 
 const parsed = JSON.parse(localStorage["notes"] || '{}');
 const array = [];
@@ -17,12 +22,11 @@ for (var i in parsed) {
 
 class App extends React.Component {
 
-
     state = { 
     	notes: array,
     	activeNote: -1,
 		searchResults: []	
-     }
+	}
 
     componentWillMount() {
         const modified = this.state.notes;
@@ -31,39 +35,14 @@ class App extends React.Component {
         localStorage.setItem("notes", JSON.stringify(this.state.notes));
     }
 
-    
-
     searchNotes = (value) => {
-
-        
 		let searchResults=[];
-       
         const allNotes = this.state.notes;
-        allNotes.forEach(function(curr) {
-
-            if (curr.content.search(value) !== -1 || curr.name.search(value) !== -1) {
-                searchResults.push(curr)
-            } 
-		    
-            
-            // cross adevent listener searchresults=""
- 			//flash content
- 			// componentn unmount - clear state
-
-        })
-        console.log("searchResults" , searchResults )
-        console.log("state1 ", this.state.searchResults) 
-		this.setState({ searchResults: searchResults}) 
-		console.log("state2 ", this.state.searchResults) 
-        
-    }
-
-
-    toggleDisplay = (noteIndex) =>     
-        this.setState(function(prevState){
-      		return {activeNote: prevState.activeNote === noteIndex ? -1 : noteIndex}
-   			})
-
+		const regex = new RegExp(`${value}`, 'i')
+		searchResults = allNotes.filter(curr => regex.test(curr.content) || regex.test(curr.name) )
+	    this.setState({searchResults}) 
+	}
+	
 	changeNotesList = (callback, value, noteIndex) => {
         const modified = this.state.notes;
 		const thisNote = this.state.notes.findIndex((e) => e.index === noteIndex);
@@ -71,40 +50,41 @@ class App extends React.Component {
         this.setState({ notes: modified });
         localStorage.setItem("notes", JSON.stringify(this.state.notes));
     }
-
+	
+	toggleDisplay = (noteIndex) => this.setState({activeNote: noteIndex})
+	// bug with displayedNote .. {activeNote: this.state.activeNote === noteIndex ? -1 : noteIndex}
+	
     addNote = (array, value, noteIndex) => array.push(value)
     removeNote = (array, value, noteIndex) => array.splice(noteIndex, 1)
     changeNote = (array, value, noteIndex) => array.splice(noteIndex, 1, value)
 
     render() {
-
-        let note;
-        const thisNote = this.state.notes.findIndex((e) => e.index === this.state.activeNote);
-		this.state.activeNote !== -1 ? note = <Note currentNote={this.state.notes[thisNote]} notes={this.state.notes} changeNotesList={this.changeNotesList} toggleDisplay={this.toggleDisplay}/>  : note = <h1> Press on existing note or make a new by clickin on add button! </h1>; 
-
+		
+		let displayedNotes;
+		displayedNotes = (this.state.searchResults.length === 0) ? this.state.notes : this.state.searchResults		
+       
         return (
             <div className="main"> 
       			<div className="left">
 					<Navbar 
 						notes={this.state.notes} 
 						changeNotesList={this.changeNotesList}  
-						searchNotes={this.searchNotes}/>
+						searchNotes={this.searchNotes}
+						toggleDisplay={this.toggleDisplay}/>
 					<NotesContainer 
-						notes={this.state.notes} 
+						notes={displayedNotes} 
 						changeNotesList={this.changeNotesList} 
 						toggleDisplay={this.toggleDisplay}/>
-				
-      			</div>
-      			<div className="right">
-					{note}
-      			</div>
+				</div>
+				<CurrentNoteBox 
+						notes={displayedNotes} 
+						activeNote={this.state.activeNote}
+						changeNotesList={this.changeNotesList} 
+						toggleDisplay={this.toggleDisplay}
+					/>
        		</div>
-
         )
-
     }
 }
-
-
 
 render(<App />, document.getElementById('app'));

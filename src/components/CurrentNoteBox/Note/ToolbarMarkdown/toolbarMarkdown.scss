@@ -1,0 +1,60 @@
+ .toolbarMarkdown {
+     // position: relative;
+     // padding-top: 50px;
+     // margin-left: 5px;
+     // margin-right: 5px;
+     grid-area: markdown;
+     border: 1px solid red;
+ }
+
+ button {
+     width: 30px;
+     height: 30px;
+     border-radius: 3px;
+     background: none;
+     border: none;
+     box-sizing: border-box;
+     padding: 0;
+     font-size: 20px;
+     color: $color-bold;
+     cursor: pointer;
+     outline: none;
+
+     &:hover {
+         color: #3FECE6;
+     }
+ }
+
+ #bold,
+ #italic,
+ #underline {
+     font-size: 15px;
+ }
+
+ #underline,
+ #align-right {
+     margin-right: 17px;
+ }
+
+ #align-left {
+     margin-left: 17px;
+ }
+
+ #fonts {
+     width: 140px;
+ }
+
+ select {
+     @include bar;
+     height: 21px;
+     font-size: 14px;
+     color: $color-bold;
+     margin: 0;
+     outline: none;
+     cursor: pointer;
+
+     option {
+         font-size: 15px;
+         background: $color-light;
+     }
+ }
