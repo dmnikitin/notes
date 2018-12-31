@@ -1,15 +1,10 @@
 @import './Note/note.scss';
 
 .currentNoteBox {
-    // display: grid;
-    // grid-template-rows: 80px auto;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 46px;
+    padding: 46px 10px 10px 10px;
     border: $border;
 
- 
- .fade-enter {
+    .fade-enter {
         opacity: 0.01;
     }
 
@@ -26,6 +21,4 @@
         opacity: 0.01;
         transition: opacity 700ms ease-out;
     }
-
-
 }

@@ -18,8 +18,7 @@
     .metaPreview {
         color: $color-bold;
         font-weight: bold;
-        display: grid;
-        
+        display: grid;        
         text-align: center;
 
         .datePreviewMax {
@@ -31,7 +30,6 @@
                 width: 100%;
                 height: 50px;
                 padding-top: 10px;
-
             }
 
             h3 {
@@ -39,7 +37,6 @@
                 margin: 0px;
                 width: 100%;
                 height: 20px;
-
             }
 
             h4 {
@@ -49,10 +46,7 @@
                 height: 20px;
             }
         }
-
-
     }
-
    
     .noteContentPreview {
         padding-top: 15px;
@@ -61,23 +55,28 @@
             font-weight: bold;
             color: $color-bold;
             font-size: 18px;
-            height: 35%;
+            height: 25%;
             margin: 0 auto;
-
+        }
+        
+        h5 {
+            height: auto;
+            display: block;
+            float: right;
+            border: $border;
+            color: $color-medium;
         }
 
         p {
             @include multiLineEllipsis($lineHeight: 13px, $lineCount: 3.0);
-
             width: 95%;
-            height: 65%;
+            height: 60%;
             color: $color-medium;
             margin: 0 auto;
             margin-left: 0px;
             padding-top: 10px;
         }
     }
-  
 }
 
 

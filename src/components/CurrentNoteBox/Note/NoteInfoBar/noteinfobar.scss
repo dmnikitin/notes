@@ -1,0 +1,17 @@
+// @import '../../../../sass/variables';
+
+.noteInfoBar {
+    grid-area: info;
+    border: $border;
+    display: grid;
+    grid-template-columns: 25% 25% 25% ;
+    background-color: white;
+    margin-top: 5px;
+    padding-top: 15px;
+
+    h2,
+    button {
+        color: $color-bold;
+        padding-left: 10px;
+    }
+}

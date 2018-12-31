@@ -2,58 +2,43 @@
 @import '../../../sass/variables';
 @import './ToolbarMarkdown/toolbarMarkdown';
 @import './ToolbarMeta/toolbarMeta';
-
-
-
+@import './NoteInfoBar/noteinfobar';
 .note {
-    border: $border;
-
+   
+    width: 100%;
     display: grid;
     grid-template-areas:
-        'meta meta . . .'
-        'name name . . .'
-        'markdown markdown . . .'
-        'content content . . .';
-
-    grid-template-rows: 100px 100px 50px;
-    // grid-template-columns: 200px auto;
-    background: white;
+        'meta meta'
+        'name name '
+        'markdown markdown '
+        'content content '
+        'info info';
+    grid-template-rows: 50px  100px 35px 600px 50px ;
+    background: $color-back;
     grid-auto-flow: row;
 
     .note-name {
-        @include textarea(name, 50px, 10px, 200px);
+        @include textarea(name, 50px, 0px, 100px);
         border: $border;
     }
 
     .note-content {
-        @include textarea(content, 25px, 50px, 700px);
+        @include textarea(content, 25px, 0px, 600px);
         border: $border;
-
+        font-size: 20px;
+        
         div {
             height: 20px;
         }
+
+        strong, b {
+            
+            font-weight: bold;
+        }
+        i {
+            font-style: italic;
+        }
     }
-
-    // .fade-enter {
-    //     opacity: 0.01;
-    // }
-
-    // .fade-enter-active {
-    //     opacity: 1;
-    //     transition: opacity 500ms ease-in;
-    // }
-
-    // .fade-exit {
-    //     opacity: 1;
-    // }
-
-    // .fade-exit-active {
-    //     opacity: 0.01;
-    //     transition: opacity 500ms ease-in;
-    // }
-
-
-
 
 
 }

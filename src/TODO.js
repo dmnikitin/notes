@@ -1,17 +1,5 @@
 
 
-handleChange = (value, openTag, closeTag) => {
-		
-		let text =  "waffa napoli waffa";
-		
-		return text.split(value).join(`${openTag}${value}${closeTag}`);
-		
-	}
-
-	console.log(handleChange("ff", "<i>", "</i>"))
-
-
-
 //refs  - only stateful components
 
 render() {
@@ -35,13 +23,10 @@ const limits = { user: {min: 5, max: 10 } }
 
 // проверка на таски
 
-static defaultProps = {tasks = []}
+static defaultProps = {tasks:[]}
 if !tasks.length  return No tasks yet
-static defaultProps {
-	comments: []
-}
 
-
+// cool
 onClick={() => {
                       this.setState(state => ({
                         items: state.items.filter(
@@ -50,24 +35,19 @@ onClick={() => {
                       }));
 
 
+// bugs: 
+// 1 local storage displayed note
+// 2 date sorting on mount
+// 3 markdown-w search
 
+// v 0.4 implemented tags logic,  text-markdown feature corrected
+//  proptypes, note-name - to contenteditable, multiple tags, anti-markdown
 
-
-//v.0.2.
-
-//note edited,
-//local storage displayed note
-//sort frow new to old
-
-
-// v.0.2 added animation, tags-box logic, optimized sass files structure
-
-//v.0.3  branch develop
+//v.0.5  branch develop
 //redux
 // 1. auth
 // 2. search highlighted
-// 3. colored notes /w lightened color  or TAGS
-// 4.  responsive 
+// 3. responsive 
 
 
 

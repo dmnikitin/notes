@@ -17,15 +17,38 @@ export default class NotePreview extends React.Component {
         toggleDisplay: PropTypes.func
 
     }
+    
+    state = { displayedContent: ""}
+
+    componentWillMount = () => {
+        const displayed = this.markdownToNormal();
+        this.setState({ displayedContent: displayed })
+       
+    }
+
+    componentWillReceiveProps = (nextProps) => {
+        if (nextProps.currentNote.content !== this.state.displayedContent) {
+        const displayed = this.markdownToNormal();
+        this.setState({ displayedContent: displayed })
+     }
+    }
+
+    markdownToNormal = () => {
+        const thisNote = this.props.currentNote;
+        const markdown = /(<\/?strong?[^>]*>)|(<\/?i[^>]*>)|(<\/?u[^>]*>)|(<\/?div[^>]*>)|(<\/?strong[^>]*>)|(<\/?b[^>]*>)/g;
+        const html = thisNote.content.replace(markdown, '');            
+        return html
+    }
        
     displayNote = () => this.props.toggleDisplay(this.props.currentNote.index)
 
     render() {
-        let priorityBorder;
-        this.props.currentNote.priority === true ? priorityBorder = { "borderLeft": "5px solid gold" } : null;
+        let priorityBorder, tags;
         let thisMonth = notePreviewDate(this.props.currentNote.date, "month");
         let thisDay = notePreviewDate(this.props.currentNote.date, "day");
         let thisYear = notePreviewDate(this.props.currentNote.date, "year");
+        this.props.currentNote.priority ? priorityBorder = { "borderLeft": "5px solid gold" } : null;
+        this.props.currentNote.tags ? tags = <h5>tags: {this.props.currentNote.tags.value}</h5> : tags = <h5>tags: none</h5>
 
         return (
  
@@ -39,7 +62,8 @@ export default class NotePreview extends React.Component {
                 </div>
                 <div className="noteContentPreview">
                     <h2>{this.props.currentNote.name}</h2>
-                    <p>{this.props.currentNote.content}</p>
+                    <p>{this.state.displayedContent}</p>
+                    {tags}
                 </div>
             </li>
 

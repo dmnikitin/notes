@@ -11,7 +11,7 @@ export default class Navbar extends React.Component {
         changeNotesList: PropTypes.func,
         searchNotes: PropTypes.func
     }
-
+   
     componentDidMount() {
 
         const fetchRequest = () => {
@@ -41,21 +41,18 @@ export default class Navbar extends React.Component {
 
     findNotes = (e) => this.props.searchNotes(e.target.value)
 
-    selectList = () => {
-        
-    }
-   
     render() {
         return (
             <div className="navbar"> 
 				<div className="search-container">
-					<form action="">
-						<input type="text" id="searchbar"  placeholder="Search.." name="search" onChange={this.findNotes}/>
+					<form action="" id="searchbar">
+						<span  className="fa fa-search" ></span>
+                        <input type="text"   placeholder="Search.." name="search" onChange={this.findNotes}/>
 					</form>
-				</div>
-                <span id="selectList" className="fa fa-reorder" onClick={this.selectList}></span>
-				<span id="addnote" className="fa fa-plus" onClick={this.addNote}></span>
+				</div>                               
+				<span id="addnote" className="fa fa-pencil" onClick={this.addNote}></span>
 			</div>
         )
     }
 }
+

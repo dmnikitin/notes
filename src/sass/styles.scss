@@ -3,6 +3,7 @@
 @import 'variables';
 
 @import '../components/NavBar/navbar';
+@import '../components/NavBar/tagbar';
 @import '../components/CurrentNoteBox/CurrentNoteBox';
 @import '../components/NotesContainer/notecontainer';
 
@@ -22,7 +23,7 @@
 
   .left {
     display: grid;
-    grid-template-rows: 50px 300px 300px;
+    grid-template-rows: 50px 50px 300px 300px;
      grid-auto-flow: row dense;
   }
 }

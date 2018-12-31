@@ -1,0 +1,26 @@
+@import '../../sass/variables.scss';
+
+.react-select-container {
+    border-bottom: $border;
+    border-left: $border;
+}
+
+.react-select__value-container {
+    font-size: 20px;
+    margin-left: 10px;
+    background: $color-back;
+    &:hover {
+        border: 2px solid $color-back;
+    }
+}
+
+.react-select__menu {
+    position: relative;
+    top: 0;
+    height: 75px;
+}
+
+.react-select__option {
+    font-family: 'Times New Roman', Times, serif;
+    height: 25px;
+}

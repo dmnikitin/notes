@@ -1,10 +1,11 @@
  .toolbarMarkdown {
-     // position: relative;
-     // padding-top: 50px;
-     // margin-left: 5px;
-     // margin-right: 5px;
+  
      grid-area: markdown;
-     border: 1px solid red;
+    
+     margin-top: 5px;
+     background-color: white;
+     border: $border;
+    padding-top: 5px;
  }
 
  button {

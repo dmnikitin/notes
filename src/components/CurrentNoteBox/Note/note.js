@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ToolbarMeta from './ToolbarMeta/toolbarMeta.js';
-import ToolbarMarkdown from './ToolbarMarkdown/toolbarMarkdown.js'
+import ToolbarMarkdown from './ToolbarMarkdown/toolbarMarkdown.js';
+import NoteInfoBar from './NoteInfoBar/noteinfobar.js';
 import ContentEditable from './contentEditable.js';
-
+import { today } from '../../../helpers/helpers.js';
 
 export default class Note extends React.Component {
 
@@ -21,9 +22,10 @@ export default class Note extends React.Component {
         
     }
 
-    state = {
-    	html: this.props.currentNote.content,
-    }
+    state = { html: "" }
+
+    componentWillMount = () => this.setState({ html: this.props.currentNote.content })
+    
 
     handleChange = (e, index) => {
 		let { notes, currentNote, changeNotesList } = this.props;
@@ -34,31 +36,21 @@ export default class Note extends React.Component {
 			this.setState({html: e.data});
 			change.content = e.data;
 		}  
+        change.edited = today;
 		changeNotesList('changeNote', change, this.props.currentNote.index);
     }
-
-    getMarkdownText = () => {
-
-    }
-
-    
 
     render() {
 
         return (
                
             <div className="note"> 
-            
-             
-                    <ToolbarMeta currentNote={this.props.currentNote} changeNotesList={this.props.changeNotesList}/>
-    			  
-                    <textarea className="note-name" onChange={()=>this.handleChange(event, "name")} value={this.props.currentNote.name}>  </textarea>
-       				<ContentEditable currentNote={this.props.currentNote} html={this.props.currentNote.content} onChange={this.handleChange}/>
-    	            <ToolbarMarkdown currentNote={this.props.currentNote} changeNotesList={this.props.changeNotesList}/>
-              
-              
+                <ToolbarMeta currentNote={this.props.currentNote} changeNotesList={this.props.changeNotesList} tags={this.props.tags} addTag={this.props.addTag}/>
+    			<textarea className="note-name" onChange={()=>this.handleChange(event, "name")} value={this.props.currentNote.name}>  </textarea>
+   				<ContentEditable currentNote={this.props.currentNote} html={this.props.currentNote.content} onChange={this.handleChange}/>
+	            <ToolbarMarkdown currentNote={this.props.currentNote} changeNotesList={this.props.changeNotesList}/>
+                <NoteInfoBar currentNote={this.props.currentNote}  />
             </div>
-
         )
     }
 }

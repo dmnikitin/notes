@@ -2,57 +2,31 @@
 @import '../../sass/variables.scss';
 
  .notesContainer {
-     height: 810px;
-    
-     overflow: auto;
-
+    height: 810px;
+    overflow: auto;
     display: grid;
     grid-auto-flow: row dense;
+    grid-template-rows: repeat(auto-fill, 100px);
 
-     .starredNotes {
-    
-        
-         display: grid;
-       grid-template-rows: 50px repeat(auto-fill, 100px);
-     
-
+    .fade-enter {
+        opacity: 0.01;
+        transform: translateX(-100%);
      }
 
-     .otherNotes {
-      
-   
-      display: grid;
-       grid-template-rows: 50px repeat(auto-fill, 100px);
-     
-     }
-
-      h5 {
-                text-align: left;
-                font-size: 25px;
-                color: $color-bold;
-                padding-top: 10px;
-                padding-left: 22px;
-            }
-
-     .fade-enter {
-         opacity: 0.01;
-         transform: translateX(-100%);
-     }
-
-     .fade-enter-active {
-         opacity: 1;
-          transition: 500ms ease-out;
+    .fade-enter-active {
+        opacity: 1;
+        transition: 500ms ease-out;
         transform: translateX(0%);  
      }
 
-     .fade-exit {
-         opacity: 1;
-         transform: translateX(0%);
+    .fade-exit {
+        opacity: 1;
+        transform: translateX(0%);
      }
 
      .fade-exit-active {
-         opacity: 0.01;
-         transition: 500ms ease-out;
-         transform: translateX(-100%);
+        opacity: 0.01;
+        transition: 500ms ease-out;
+        transform: translateX(-100%);
      }
  }
