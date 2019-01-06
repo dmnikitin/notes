@@ -2,49 +2,32 @@
   
      grid-area: markdown;
     
-     margin-top: 5px;
+   
      background-color: white;
      border: $border;
     padding-top: 5px;
+
  }
 
  button {
-     width: 30px;
-     height: 30px;
+     width: 20px;
+     height: 20px;
      border-radius: 3px;
      background: none;
      border: none;
      box-sizing: border-box;
-     padding: 0;
-     font-size: 20px;
+   
+     font-size: 12px;
      color: $color-bold;
      cursor: pointer;
      outline: none;
+     padding: 10px 15px 12px 15px;
 
      &:hover {
          color: #3FECE6;
      }
  }
-
- #bold,
- #italic,
- #underline {
-     font-size: 15px;
- }
-
- #underline,
- #align-right {
-     margin-right: 17px;
- }
-
- #align-left {
-     margin-left: 17px;
- }
-
- #fonts {
-     width: 140px;
- }
-
+ 
  select {
      @include bar;
      height: 21px;

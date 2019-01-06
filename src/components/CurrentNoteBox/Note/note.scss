@@ -3,28 +3,32 @@
 @import './ToolbarMarkdown/toolbarMarkdown';
 @import './ToolbarMeta/toolbarMeta';
 @import './NoteInfoBar/noteinfobar';
+
 .note {
    
     width: 100%;
     display: grid;
     grid-template-areas:
+        // 'auth auth'
         'meta meta'
-        'name name '
-        'markdown markdown '
+        'name name'        
         'content content '
+        'markdown markdown '
         'info info';
-    grid-template-rows: 50px  100px 35px 600px 50px ;
+    grid-template-rows:  48px 100px 690px 50px 50px ;
     background: $color-back;
     grid-auto-flow: row;
 
     .note-name {
-        @include textarea(name, 50px, 0px, 100px);
+        @include textarea(name, 50px, 0px, 102px);
         border: $border;
+        border-top: none;
     }
 
     .note-content {
-        @include textarea(content, 25px, 0px, 600px);
+        @include textarea(content, 25px, 0px, 690px);
         border: $border;
+        
         font-size: 20px;
         
         div {

@@ -27,18 +27,12 @@ const notePreviewDate = (date, value) => {
     };
 
 
-const arraySort = (array) => {
-    array.map(curr=> curr.date = curr.date.split('.'));
-    array.sort((a,b) => a.date[0]<b.date[0])
-    array.sort((a,b) => a.date[1]>b.date[1]).map(curr=> curr.date = curr.date.join('.'));
-    array.sort((a,b)=> (a.priority === b.priority) ? 0 : a.priority? -1 : 1);
-    return array
-  };
+const arraySort = array => array.sort((a,b)=> a.index>b.index).sort((a,b)=> (a.priority === b.priority) ? 0 : a.priority? -1 : 1)
+    // array.map(curr=> curr.date = curr.date.split('.'));
+    // array.sort((a,b) => a.date[0]>b.date[0]).sort((a,b) => a.date[1]>b.date[1]).map(curr=> curr.date = curr.date.join('.'));
+    
+    
+  
 	
+export { arraySort, today, notePreviewDate };
 
-
-module.exports = {
-  today,
-  arraySort,
-  notePreviewDate    
-}

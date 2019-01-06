@@ -1,14 +1,18 @@
 import React from 'react';
 import { today } from '../../../../helpers/helpers.js';
-export default class ToolbarMarkdown extends React.Component {
+import { connect } from 'react-redux';
+import { changeNote } from '../../../../store/ac.js'; 
+
+class ToolbarMarkdown extends React.Component {
 
    	handleChange = (e, openTag, closeTag) => {
-		let text =  window.getSelection().toString();
-		let thisNote = this.props.currentNote;
-		thisNote.content = thisNote.content.split(text).join(`${openTag}${text}${closeTag}`)
-		thisNote.edited = today;
-		this.props.changeNotesList('changeNote', thisNote, thisNote.index)
-		
+   		const { notes, currentNote, onChangeNote } = this.props;
+   		const notePositionInStoreArray = notes.findIndex((e) => e.index === currentNote.index);
+  		let text =  window.getSelection().toString();
+  		const change = currentNote;
+  		change.content = change.content.split(text).join(`${openTag}${text}${closeTag}`)
+  		change.edited = today;
+	    this.props.onChangeNote(change, notePositionInStoreArray);
 	}
 	
     render() {
@@ -22,3 +26,15 @@ export default class ToolbarMarkdown extends React.Component {
         )
     }
 }
+
+export default connect(
+    state => {     
+      return {
+           notes: state.notes
+    }},
+    dispatch => ({
+      onChangeNote: (value, noteIndex) => {
+              dispatch(changeNote(value, noteIndex))
+      }
+  })
+)(ToolbarMarkdown);

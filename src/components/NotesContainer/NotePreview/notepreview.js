@@ -1,26 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { notePreviewDate } from '../../../helpers/helpers.js';
+import { connect } from 'react-redux';
+import { makeNoteActive } from '../../../store/ac.js'; 
 
-export default class NotePreview extends React.Component {
+class NotePreview extends React.Component {
 
-    static propTypes = {
-        notes: PropTypes.array,
-        currentNote: PropTypes.shape({
-            name: PropTypes.string,
-            content: PropTypes.string,
-            priority: PropTypes.bool,
-            location: PropTypes.string,
-            date: PropTypes.string,
-            index: PropTypes.number
-        }),
-        toggleDisplay: PropTypes.func
+    // static propTypes = {
+    //     notes: PropTypes.array,
+    //     currentNote: PropTypes.shape({
+    //         name: PropTypes.string,
+    //         content: PropTypes.string,
+    //         priority: PropTypes.bool,
+    //         location: PropTypes.string,
+    //         date: PropTypes.string,
+    //         index: PropTypes.number
+    //     }),
+    //     toggleDisplay: PropTypes.func
 
-    }
+    // }
     
     state = { displayedContent: ""}
 
     componentWillMount = () => {
+        //console.log(this.props)
         const displayed = this.markdownToNormal();
         this.setState({ displayedContent: displayed })
        
@@ -40,7 +43,7 @@ export default class NotePreview extends React.Component {
         return html
     }
        
-    displayNote = () => this.props.toggleDisplay(this.props.currentNote.index)
+    displayNote = () => this.props.onToggleDisplay(this.props.currentNote.index)
 
     render() {
         let priorityBorder, tags;
@@ -48,7 +51,7 @@ export default class NotePreview extends React.Component {
         let thisDay = notePreviewDate(this.props.currentNote.date, "day");
         let thisYear = notePreviewDate(this.props.currentNote.date, "year");
         this.props.currentNote.priority ? priorityBorder = { "borderLeft": "5px solid gold" } : null;
-        this.props.currentNote.tags ? tags = <h5>tags: {this.props.currentNote.tags.value}</h5> : tags = <h5>tags: none</h5>
+        this.props.currentNote.tags.value ? tags = <h5>tag: {this.props.currentNote.tags.value}</h5> : tags = <h5>tag: none</h5>
 
         return (
  
@@ -70,3 +73,12 @@ export default class NotePreview extends React.Component {
         )
     }
 }
+
+export default connect(null,
+    dispatch => ({
+        onToggleDisplay: (noteIndex) => {
+            dispatch(makeNoteActive(-1))
+            setTimeout( () => dispatch(makeNoteActive(noteIndex)), 100 )          
+        }
+    })
+)(NotePreview);

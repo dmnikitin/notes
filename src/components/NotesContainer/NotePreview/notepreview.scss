@@ -4,9 +4,7 @@
 .notePreview {
     display: grid;
     grid-template-columns: 30% auto;
-    border: $border;
-    border-top: 0;
-    border-right: 0;
+    border-bottom: $border;    
     list-style-type: none;
     user-select: none;
     background-color: white;

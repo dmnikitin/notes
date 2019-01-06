@@ -5,7 +5,7 @@
         border: state.isFocused ? 0 : 0,
         boxShadow: state.isFocused ? 0 : 0,
         height: '25px',
-        "min-height": '25px',
+        minHeight: '25px',
         position: "relative",
         top: "8px",
         width: "90%",

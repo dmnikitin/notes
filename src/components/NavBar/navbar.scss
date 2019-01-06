@@ -7,7 +7,7 @@
     display: grid;
     grid-template-columns: 80% 20%;
     font-family: "Times New Roman", Times, serif;
-    
+    background: white;
     
     #searchbar {
         margin-left: 20px;
@@ -19,7 +19,7 @@
         border-bottom: $border;
         input {
             border: none;
-            background-color: $color-back;
+            background-color: white;
             min-width: 85%;
             padding-left: 5px;
 

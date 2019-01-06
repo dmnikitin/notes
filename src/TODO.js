@@ -36,20 +36,16 @@ onClick={() => {
 
 
 // bugs: 
-// 1 local storage displayed note
-// 2 date sorting on mount
-// 3 markdown-w search
 
-// v 0.4 implemented tags logic,  text-markdown feature corrected
-//  proptypes, note-name - to contenteditable, multiple tags, anti-markdown
-
-//v.0.5  branch develop
-//redux
-// 1. auth
-// 2. search highlighted
-// 3. responsive 
+// 2 markdown-w search
+// 3 anti-markdown
 
 
+//  proptypes, repeated stuff in methods, back button
+
+//v.0.5  branch develop redux
+
+//v.0.6  auth, responsive
 
 // deploy + readme
 

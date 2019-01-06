@@ -3,15 +3,16 @@
 .react-select-container {
     border-bottom: $border;
     border-left: $border;
+    padding-top: 5px;
 }
 
 .react-select__value-container {
-    font-size: 20px;
+    font-size: 15px;
     margin-left: 10px;
-    background: $color-back;
-    &:hover {
-        border: 2px solid $color-back;
-    }
+      background: white;
+    // &:hover {
+    //     color: gold;
+    // }
 }
 
 .react-select__menu {

@@ -5,6 +5,11 @@ import ReactDOM from 'react-dom';
 export default class ContentEditable extends Component {
 
     state = {html: ""}
+
+    componentWillMount = () => {
+       console.log(this.props.html) 
+       this.setState({html: this.props.html})
+    }
     
     shouldComponentUpdate = (nextProps) => 
          (nextProps.html !== ReactDOM.findDOMNode(this).innerHTML) ? true : false
@@ -16,9 +21,17 @@ export default class ContentEditable extends Component {
         // console.log("this ", this)
         // console.log( "inner ", html)
         if (this.props.onChange && html !== this.lastHtml) {
-           this.props.onChange({
-                data: html
-            }, "content")
+           
+           if (this.props.edited === "content") {
+               this.props.onChange({
+                    data: html
+                }, "content")
+            } 
+            else if (this.props.edited === "name"){
+               this.props.onChange({
+                    data: html
+                }, "name") 
+            }
         }
         this.lastHtml = html;
     }
@@ -34,7 +47,7 @@ export default class ContentEditable extends Component {
    
         return (
             <div 
-                className="note-content"
+                
                 onInput={this.emitChange} 
                 onBlur={this.emitChange}
                 contentEditable
