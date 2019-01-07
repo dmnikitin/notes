@@ -11,7 +11,7 @@ const getFromLocalStorage = () => {
         } 
 
         else {
-          if (!parsed.hasOwnProperty("notes")) { storage.notes = [{ name: "cofveve", date: "31.12.2018", priority: false, location: "Minsk, Belarus", content: "infamous Trump's tweet", index: Date.now(), tags: {value: "", label: ""} }] }
+          if (!parsed.hasOwnProperty("notes")) { storage.notes = [{ name: "cofveve", date: "31.12.2018", priority: false, location: "Minsk, Belarus", content: "<i>infamous</i> <strong>Trump's</strong> <u>tweet</u>", index: Date.now(), tags: {value: "", label: ""} }] }
           if (!parsed.hasOwnProperty("tags")) { storage.tags = [{value: "important", label: "Important"}, {value: "personal", label: "Personal"}] }
           
            if (!parsed.hasOwnProperty("active")) { storage.active = {activeNote: -1, activeTag: {value: 'allNotes', label: 'All Notes'} }

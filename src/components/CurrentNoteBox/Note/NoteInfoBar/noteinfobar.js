@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const NoteInfoBar = ({ currentNote }) => {
 
@@ -15,3 +16,16 @@ const NoteInfoBar = ({ currentNote }) => {
 }
 
 export default NoteInfoBar;
+
+
+NoteInfoBar.propTypes = {   
+    currentNote: PropTypes.shape({
+            name: PropTypes.string,
+            content: PropTypes.string,
+            edited: PropTypes.string,
+            priority: PropTypes.bool,
+            location: PropTypes.string,
+            date: PropTypes.string,
+            index: PropTypes.number
+        })     
+}

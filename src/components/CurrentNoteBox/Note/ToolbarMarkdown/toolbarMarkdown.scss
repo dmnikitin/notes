@@ -1,12 +1,10 @@
  .toolbarMarkdown {
   
-     grid-area: markdown;
-    
-   
-     background-color: white;
-     border: $border;
+    grid-area: markdown;
+    background-color: white;
+    border-left: $border;
+    border-top: $border;
     padding-top: 5px;
-
  }
 
  button {

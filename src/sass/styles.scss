@@ -22,23 +22,39 @@ body {
   margin: 10px;
   display: grid;
   background-color: white;
-  height: 100%;
-  grid-template-columns: 30% auto 5%;
+  height: 950px;
+  grid-template-columns: 30% auto ;
 
   .left {
     display: grid;
-    grid-template-rows: 50px 50px 300px 300px;
-     grid-auto-flow: row dense;
+    grid-template-rows: 50px 50px auto;
+     grid-auto-flow: row dense;   
   }
 }
 
 @media (max-width: 800px) {
   .main {
-  display: grid;
-  grid-template-columns: 100%;
+    display: block;
+
+    .left {      
+        height: auto;
+        li {
+          height: 100px;
+        }   
+     }
+    .narrow-view {
+       display: none;
+    }
+    .full-view {
+       display: block;
+    }
+  }   
+  
+}
+
+@media (min-width: 1200px) {
+  .main {
+    margin-left: 100px;
+    margin-right: 400px;
   }
-  .currentNoteBox {
-    display: none;
-  }
-    
 }

@@ -6,40 +6,38 @@ import { makeNoteActive } from '../../../store/ac.js';
 
 class NotePreview extends React.Component {
 
-    // static propTypes = {
-    //     notes: PropTypes.array,
-    //     currentNote: PropTypes.shape({
-    //         name: PropTypes.string,
-    //         content: PropTypes.string,
-    //         priority: PropTypes.bool,
-    //         location: PropTypes.string,
-    //         date: PropTypes.string,
-    //         index: PropTypes.number
-    //     }),
-    //     toggleDisplay: PropTypes.func
-
-    // }
+    static propTypes = {
+        notes: PropTypes.array,
+        currentNote: PropTypes.shape({
+            name: PropTypes.string,
+            content: PropTypes.string,
+            edited: PropTypes.string,
+            priority: PropTypes.bool,
+            location: PropTypes.string,
+            date: PropTypes.string,
+            index: PropTypes.number
+        }),      
+        onToggleDisplay: PropTypes.func
+    }
     
     state = { displayedContent: ""}
 
     componentWillMount = () => {
-        //console.log(this.props)
         const displayed = this.markdownToNormal();
         this.setState({ displayedContent: displayed })
-       
-    }
-
+    }  
+ 
     componentWillReceiveProps = (nextProps) => {
         if (nextProps.currentNote.content !== this.state.displayedContent) {
         const displayed = this.markdownToNormal();
         this.setState({ displayedContent: displayed })
-     }
+        }  
     }
 
     markdownToNormal = () => {
         const thisNote = this.props.currentNote;
         const markdown = /(<\/?strong?[^>]*>)|(<\/?i[^>]*>)|(<\/?u[^>]*>)|(<\/?div[^>]*>)|(<\/?strong[^>]*>)|(<\/?b[^>]*>)/g;
-        const html = thisNote.content.replace(markdown, '');            
+        const html = thisNote.content.replace(markdown, '');                    
         return html
     }
        
@@ -53,8 +51,7 @@ class NotePreview extends React.Component {
         this.props.currentNote.priority ? priorityBorder = { "borderLeft": "5px solid gold" } : null;
         this.props.currentNote.tags.value ? tags = <h5>tag: {this.props.currentNote.tags.value}</h5> : tags = <h5>tag: none</h5>
 
-        return (
- 
+        return ( 
            <li className="notePreview" onClick={this.displayNote} style={priorityBorder}>
                 <div className="metaPreview" > 
                     <span className="datePreviewMax">
@@ -69,7 +66,6 @@ class NotePreview extends React.Component {
                     {tags}
                 </div>
             </li>
-
         )
     }
 }

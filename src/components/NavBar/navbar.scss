@@ -1,52 +1,97 @@
 @import '../../sass/variables.scss';
 
 .navbar {
-    border: $border;
-    border-right: 0;
+        
     height: 50px;
     display: grid;
     grid-template-columns: 80% 20%;
     font-family: "Times New Roman", Times, serif;
     background: white;
-    
-    #searchbar {
-        margin-left: 20px;
-        margin-right: 0px;
-        height: 25px;
-        position: relative;
-       
-        top: 10px;
-        border-bottom: $border;
-        input {
-            border: none;
-            background-color: white;
-            min-width: 85%;
-            padding-left: 5px;
 
-        }
-        span {
-            color: $color-medium;
-            &:hover {
-                color: grey;
+    .search-container {
+
+        form {
+
+            height: 100%;
+            position: relative;
+            display: grid;
+            padding-left: 20px;
+            padding-top: 4px;
+
+            input {
+                border: none;
+                background-color: white;
+            }
+
+            .search-button {
+                padding-top: 14px;
+                padding-left: 30%;
+            }
+
+            span {
+                color: $color-bold;
+
+                &:hover {
+                    color: black;
+                }
+            }
+
+            .fade-enter {
+                opacity: 0.01;
+                transform: translateX(-100%);
+            }
+
+            .fade-enter-active {
+                opacity: 1;
+                transition: 500ms ease-out;
+                transform: translateX(0%);
+            }
+
+            .fade-exit {
+                opacity: 1;
+                transform: translateX(0%);
+            }
+
+            .fade-exit-active {
+                opacity: 0.01;
+                transition: 500ms ease-out;
+                transform: translateX(-100%);
             }
         }
+
+        ::placeholder {
+            color: $color-bold;
+        }
     }
 
-    ::placeholder {
-        color: $color-bold;
+    .full-form {
+         grid-template-columns: 10% 80%;
     }
+
+    .clicked-form {
+         grid-template-columns: 1% 99%;
+    }
+
 
     #addnote {
-        top: 10px;
+        top: 17px;
         width: 20%;
         margin: 0 auto;
         position: relative;
         height: 25px;
-        font-size: 20px;
-
-        color: $color-medium;
+        font-size: 17px;
+        color: $color-bold;
         &:hover {
-            color: grey;
+            color: gold;
         }
     }
+}
+
+
+@keyframes grid {
+  0%   {grid-template-columns: 5% 95%}
+  // 25%  {grid-template-columns: 4% 92%}
+  // 50%  {grid-template-columns: 3% 94%}
+  // 75%  {grid-template-columns: 2% 97%}
+  100% {grid-template-columns: 1% 99%}
 }

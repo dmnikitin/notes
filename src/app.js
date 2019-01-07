@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Navbar from './components/NavBar/navbar.js';
 import TagBar from './components/NavBar/tagbar.js';
 import NotesContainer from './components/NotesContainer/notescontainer.js';
@@ -9,6 +10,15 @@ import { connect } from 'react-redux';
 import './sass/styles.scss';
 
 class App extends Component {
+
+    static propTypes = {
+        notes: PropTypes.array,
+        tags: PropTypes.array,
+        active: PropTypes.shape({
+            activeTag: PropTypes.shape({ value: PropTypes.string, label: PropTypes.string}),
+            activeNote: PropTypes.number           
+        })
+    }
 
     state = { 
      	searchResults: [],
@@ -23,20 +33,21 @@ class App extends Component {
 	    this.setState({searchResults, searching: true}) 
 	}
 				
-    render() {
-		let displayedNotes;		
-		displayedNotes = (this.state.searching) ? this.state.searchResults : this.props.active.activeTag.value !== "allNotes" ? this.props.notes.filter( 
-			(note) => typeof note.tags === 'object' && note.tags.value === this.props.active.activeTag.value) : this.props.notes		
-       	console.log(this.props.active.activeTag)
-        return (
-        	
+    render() {    	
+		let displayedNotes, responsiveNotesContainer, responsiveNoteBox;		
+		displayedNotes = (this.state.searching) ? this.state.searchResults : this.props.active.activeTag.value !== "allNotes" 
+		? this.props.notes.filter( note =>  note.tags.value === this.props.active.activeTag.value) : this.props.notes		
+		this.props.active.activeNote > 0 ? responsiveNoteBox="full-view currentNoteBox" : responsiveNoteBox = "narrow-view currentNoteBox";
+       	this.props.active.activeNote > 0 ? responsiveNotesContainer ="narrow-view notesContainer" : responsiveNotesContainer = "full-view notesContainer";      
+
+        return (        	
 	            <div className="main"> 
 	      			<div className="left">
 						<Navbar searchNotes={this.searchNotes}/>
 						<TagBar />
-						<NotesContainer notes={displayedNotes}/>						
+						<NotesContainer notes={displayedNotes} responsiveClassName={responsiveNotesContainer}/>						
 					</div>
-					<CurrentNoteBox />
+					<CurrentNoteBox responsiveClassName={responsiveNoteBox}/>
 	       		</div>      		
         )
     }

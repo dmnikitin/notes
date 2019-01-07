@@ -15,7 +15,6 @@
     
     .metaPreview {
         color: $color-bold;
-        font-weight: bold;
         display: grid;        
         text-align: center;
 
@@ -50,7 +49,6 @@
         padding-top: 15px;
         padding-left: 25px;
         h2 {
-            font-weight: bold;
             color: $color-bold;
             font-size: 18px;
             height: 25%;
@@ -61,8 +59,8 @@
             height: auto;
             display: block;
             float: right;
-            border: $border;
             color: $color-medium;
+            padding-right: 10px;
         }
 
         p {

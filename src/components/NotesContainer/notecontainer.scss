@@ -2,13 +2,11 @@
 @import '../../sass/variables.scss';
 
  .notesContainer {
-    height: 810px;
+    height: 800px;
     overflow: auto;
     display: grid;
     grid-auto-flow: row dense;
     grid-template-rows: repeat(auto-fill, 100px);
-    border-left: $border;
-    
 
     .fade-enter {
         opacity: 0.01;
