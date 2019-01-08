@@ -41,7 +41,7 @@ export default connect(state => {
     dispatch => ({
         onTagChange: (tag) => {
             dispatch(makeTagActive(tag))
-            dispatch(makeNoteActive(-1))
+            dispatch(makeNoteActive(0))
         }
     })
 )(TagBar);

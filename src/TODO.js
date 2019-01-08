@@ -35,9 +35,9 @@ onClick={() => {
                       }));
 
 
-//  responsive, comments
+ 
 
-//v.0.6  auth
+//v.0.6  auth comments
 
 // deploy + readme
 

@@ -15,7 +15,6 @@ import { makeNoteActive, deactive } from '../../store/ac.js';
                     </CSSTransition>
     } 
     else {note = <h1 style={{"padding": "15px", "color": "grey"}}> Press on existing note or make a new by clickin on add button! </h1>}
-    
     return (
        <TransitionGroup className={responsiveClassName}>
             {note}
