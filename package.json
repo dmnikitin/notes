@@ -25,7 +25,6 @@
     "proptypes": "^1.1.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-onclickoutside": "^6.7.1",
     "react-redux": "6.0.0",
     "react-select": "^2.2.0",
     "react-transition-group": "^2.5.0",
