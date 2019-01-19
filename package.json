@@ -19,6 +19,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "homepage": "https://dmnikitin.github.io/notes/",
   "dependencies": {
     "i": "^0.3.6",
     "npm": "^6.5.0",
