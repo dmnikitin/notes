@@ -15,12 +15,13 @@
   },
   "scripts": {
     "start": "webpack-dev-server --open",
-    "deploy": "gh-pages -d src"
+    "build": "webpack --mode production",
+    "deploy": "gh-pages -d build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "homepage": "https://dmnikitin.github.io/notes/",
+  "homepage": "https://dmnikitin.github.io/notes",
   "dependencies": {
     "gh-pages": "^2.0.1",
     "i": "^0.3.6",
