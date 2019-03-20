@@ -21,10 +21,8 @@ export default class ContentEditable extends Component {
     
     state = {html: ""}
 
-    componentWillMount = () => {
-       console.log(this.props.html) 
-       this.setState({html: this.props.html})
-    }
+    componentWillMount = () => this.setState({html: this.props.html})
+   
     
     shouldComponentUpdate = (nextProps) => 
          (nextProps.html !== ReactDOM.findDOMNode(this).innerHTML) ? true : false
@@ -40,7 +38,7 @@ export default class ContentEditable extends Component {
                  }, "content")
              } else {
                  this.props.onChange({
-                     data: "..."
+                     data: ""
                  }, "content")
              }
          } else if (this.props.edited === "name") {
@@ -49,9 +47,16 @@ export default class ContentEditable extends Component {
                      data: html
                  }, "name")
              } else {
-                 this.props.onChange({
-                     data: "untitled"
-                 }, "name")
+                   
+                let range = document.createRange();
+                range.setStart(this.container, 0); 
+                
+                   
+                 setTimeout(() => 
+                    {this.props.onChange({ data: "untitled"}, "name")                  
+                       
+                         ReactDOM.findDOMNode(this).blur()
+                       }, 2000)
              }
          }
      }
@@ -74,9 +79,8 @@ export default class ContentEditable extends Component {
             sel.addRange(range)
         }
     }
-    setContainerRef = (ref) => {
-        this.container = ref
-    }   
+    setContainerRef = (ref) => this.container = ref
+  
  
     render() {
    

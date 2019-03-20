@@ -29,14 +29,17 @@ class NotePreview extends React.Component {
  
     componentWillReceiveProps = (nextProps) => {
         if (nextProps.currentNote.content !== this.state.displayedContent) {
-        const displayed = this.markdownToNormal();
-        this.setState({ displayedContent: displayed })
-        }  
+            const displayed = this.markdownToNormal();
+            this.setState({ displayedContent: displayed })
+        }            
+        if (nextProps.currentNote.content === "") {
+            this.setState({ displayedContent: "" })
+        }
     }
 
     markdownToNormal = () => {
         const thisNote = this.props.currentNote;
-        const markdown = /(<\/?strong?[^>]*>)|(<\/?i[^>]*>)|(<\/?u[^>]*>)|(<\/?div[^>]*>)|(<\/?strong[^>]*>)|(<\/?b[^>]*>)/g;
+        const markdown = /(<\/?strong?[^>]*>)|(<\/?i[^>]*>)|(<\/?u[^>]*>)|(<\/?div|span[^>]*>)|(<\/?strong[^>]*>)|(<\/?b[^>]*>)|(<\/?p[^>]*>)|(<\/?h1[^>]*>)/g;
         const html = thisNote.content.replace(markdown, '');                    
         return html
     }
