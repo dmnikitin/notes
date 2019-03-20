@@ -39,7 +39,7 @@ class NotePreview extends React.Component {
 
     markdownToNormal = () => {
         const thisNote = this.props.currentNote;
-        const markdown = /(<\/?strong?[^>]*>)|(<\/?i[^>]*>)|(<\/?u[^>]*>)|(<\/?div|span[^>]*>)|(<\/?strong[^>]*>)|(<\/?b[^>]*>)|(<\/?p[^>]*>)|(<\/?h1[^>]*>)/g;
+        const markdown = /(<\/?strong?[^>]*>)|(<\/?i[^>]*>)|(<\/?u[^>]*>)|(<\/?div[^>]*>)|(<\/?strong[^>]*>)|(<\/?b[^>]*>)/g;
         const html = thisNote.content.replace(markdown, '');                    
         return html
     }
