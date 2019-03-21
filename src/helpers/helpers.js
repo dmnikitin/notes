@@ -14,22 +14,17 @@ const notePreviewDate = (date, value) => {
 	// const day = date.match(/^(\d{1,2})/g);
 	// const month = date.match(/(?<!^)(?![\.])(.{2})(?=\.)/g);
 	// const year = date.match(/(\d{4})/g);
-  let regex = /^(\d{1,2})/g;
-  console.log(regex.exec(date))
-
-  let day = date[0] + date[1];
-  let month = date[3]+date[4];
-  let year= date[6]+date[7]+date[8]+date[9];
+  let x = date.split(".")
  
 	const monthArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     if (value === "day") {
-    	return `${day}`;
+    	return `${x[0]}`;
    		} 
     else if (value ==="month") {
-		return `${monthArray[month-1]}`;
+		return `${monthArray[x[1]-1]}`;
     	}
     else if (value === "year") {
-    	return `${year}`;
+    	return `${x[2]}`;
 		}
     };
 
