@@ -1,23 +1,21 @@
+import { ADD_NOTE, DELETE_NOTE, CHANGE_NOTE } from '../store/variables';
 
-import {ADD_NOTE, DELETE_NOTE, CHANGE_NOTE} from '../store/variables.js';
-
-const NotesReducer =  (notesState = [], action) => {
-
-    const {type, payload} = action
-    
+const NotesReducer = (notesState = [], action) => {
+    const { type, payload } = action;
     switch (type) {
-
-        case ADD_NOTE: return [...notesState, payload]
-        case DELETE_NOTE: return [...notesState].filter((e, ind) =>  ind!==payload )
-		case CHANGE_NOTE: {
-			const array = [...notesState];
-			array.splice(payload.noteIndex, 1, payload.value);
-			return array
-		}
-      	
+        case ADD_NOTE:
+            return [...notesState, payload];
+        case DELETE_NOTE:
+            return [...notesState].filter((e, ind) => ind !== payload);
+        case CHANGE_NOTE:
+            {
+                const array = [...notesState];
+                array.splice(payload.noteIndex, 1, payload.value);
+                return array;
+            }
+        default:
+            return notesState;
     }
+};
 
-    return notesState
-}
-
-export {NotesReducer}
+export default NotesReducer;

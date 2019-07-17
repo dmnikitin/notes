@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-export default class ContentEditable extends Component {
+/* globals window document */
+/* eslint-disable react/no-find-dom-node */
 
+export default class ContentEditable extends Component {
     static propTypes = {
-        edited: PropTypes.string,
+        edited: PropTypes.string.isRequired,
         currentNote: PropTypes.shape({
             name: PropTypes.string,
             content: PropTypes.string,
@@ -13,87 +15,90 @@ export default class ContentEditable extends Component {
             priority: PropTypes.bool,
             location: PropTypes.string,
             date: PropTypes.string,
-            index: PropTypes.number
-        }),      
-        html: PropTypes.string,
-        onChange: PropTypes.func
+            index: PropTypes.number,
+        }).isRequired,
+        html: PropTypes.string.isRequired,
+        onChange: PropTypes.func.isRequired,
     }
-    
-    state = {html: ""}
 
-    componentWillMount = () => this.setState({html: this.props.html})
-   
-    
-    shouldComponentUpdate = (nextProps) => 
-         (nextProps.html !== ReactDOM.findDOMNode(this).innerHTML) ? true : false
-   
+    state = { html: '' }
+
+    componentWillMount = () => {
+        const { html } = this.props;
+        this.setState({ html });
+    }
+
+    shouldComponentUpdate = (nextProps) => {
+        if (nextProps.html !== ReactDOM.findDOMNode(this).innerHTML) { return true; }
+        return false;
+    }
+
     emitChange = () => {
+        const { onChange, edited } = this.props;
+        const html = ReactDOM.findDOMNode(this).innerHTML;
+        if (onChange && html !== this.lastHtml) {
+            if (edited === 'content') {
+                if (html) {
+                    onChange({
+                        data: html,
+                    }, 'content');
+                } else {
+                    onChange({
+                        data: '',
+                    }, 'content');
+                }
+            } else if (edited === 'name') {
+                if (html) {
+                    onChange({
+                        data: html,
+                    }, 'name');
+                } else {
+                    const range = document.createRange();
+                    range.setStart(this.container, 0);
+                    setTimeout(() => {
+                        onChange({ data: '' }, 'name');
+                        // ReactDOM.findDOMNode(this).blur();
+                    }, 0);
+                }
+            }
+        }
+        this.lastHtml = html;
+    }
 
-     let html = ReactDOM.findDOMNode(this).innerHTML;
-     if (this.props.onChange && html !== this.lastHtml) {
-         if (this.props.edited === "content") {
-             if (html) {
-                 this.props.onChange({
-                     data: html
-                 }, "content")
-             } else {
-                 this.props.onChange({
-                     data: ""
-                 }, "content")
-             }
-         } else if (this.props.edited === "name") {
-             if (html) {
-                 this.props.onChange({
-                     data: html
-                 }, "name")
-             } else {
-                   
-                let range = document.createRange();
-                range.setStart(this.container, 0); 
-                
-                   
-                 setTimeout(() => 
-                    {this.props.onChange({ data: "untitled"}, "name")                  
-                       
-                         ReactDOM.findDOMNode(this).blur()
-                       }, 2000)
-             }
-         }
-     }
-     this.lastHtml = html;
- }
-
-    componentDidUpdate = () => {       
-        if ( this.props.html !== ReactDOM.findDOMNode(this).innerHTML ) {
-           ReactDOM.findDOMNode(this).innerHTML = this.props.html;
+    componentDidUpdate = () => {
+        const { html } = this.props;
+        if (html !== ReactDOM.findDOMNode(this).innerHTML) {
+            ReactDOM.findDOMNode(this).innerHTML = html;
         }
     }
 
     clearSelection = () => {
-        if (this.props.edited === "name" && window.getSelection) { 
-            let sel = window.getSelection()
-            let range = document.createRange();
+        const { edited } = this.props;
+        if (edited === 'name' && window.getSelection) {
+            const sel = window.getSelection();
+            const range = document.createRange();
             range.setStart(this.container, 1);
             range.collapse(true);
             sel.removeAllRanges();
-            sel.addRange(range)
+            sel.addRange(range);
         }
     }
-    setContainerRef = (ref) => this.container = ref
-  
- 
+
+    setContainerRef = (ref) => {
+        this.container = ref;
+    }
+
     render() {
-   
+        const { html } = this.state;
         return (
-            <div 
-                ref={this.setContainerRef}
-                onSelect={this.clearSelection}
-                onInput={this.emitChange} 
-                onBlur={this.emitChange}
-                contentEditable
-                dangerouslySetInnerHTML={{__html: this.state.html}}
-              >  
-            </div>
+            <div
+              ref={this.setContainerRef}
+              onSelect={this.clearSelection}
+              onInput={this.emitChange}
+              onBlur={this.emitChange}
+              contentEditable
+              dangerouslySetInnerHTML={{ __html: html }}
+            />
         );
     }
 }

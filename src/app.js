@@ -1,56 +1,79 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Navbar from './components/NavBar/navbar.js';
-import TagBar from './components/NavBar/tagbar.js';
-import NotesContainer from './components/NotesContainer/notescontainer.js';
-import CurrentNoteBox from './components/CurrentNoteBox/currentNoteBox.js';
-import { arraySort } from './helpers/helpers.js';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import Navbar from './components/NavBar/navbar';
+import TagBar from './components/NavBar/tagbar';
+import NotesContainer from './components/NotesContainer/notescontainer';
+import CurrentNoteBox from './components/CurrentNoteBox/currentNoteBox';
+
+import { arraySort } from './helpers/helpers';
 import './sass/styles.scss';
 
 class App extends Component {
-
-    static propTypes = {
-        notes: PropTypes.array,
-        tags: PropTypes.array,
-        active: PropTypes.shape({
-            activeTag: PropTypes.shape({ value: PropTypes.string, label: PropTypes.string}),
-            activeNote: PropTypes.number           
-        })
+    static defaultProps = {
+        notes: [],
+        active: {},
     }
 
-    state = { 
-     	searchResults: [],
-		searching: false				
-	}
-   
-    searchNotes = (value) => {
-		let searchResults=[];
-        const allNotes = this.props.notes;
-		const regex = new RegExp(`${value}`, 'i')
-		searchResults = allNotes.filter(curr => regex.test(curr.content) || regex.test(curr.name) )
-	    this.setState({searchResults, searching: true}) 
-	}
-				
-    render() {    	
-		let displayedNotes, responsiveNotesContainer, responsiveNoteBox;		
-		displayedNotes = (this.state.searching) ? this.state.searchResults : this.props.active.activeTag.value !== "allNotes" 
-		? this.props.notes.filter( note =>  note.tags.value === this.props.active.activeTag.value) : this.props.notes		
-		this.props.active.activeNote > 0 ? responsiveNoteBox="full-view currentNoteBox" : responsiveNoteBox = "narrow-view currentNoteBox";
-       	this.props.active.activeNote > 0 ? responsiveNotesContainer ="narrow-view notesContainer" : responsiveNotesContainer = "full-view notesContainer";      
+    static propTypes = {
+        notes: PropTypes.arrayOf(PropTypes.object),
+        active: PropTypes.shape({
+            activeTag: PropTypes.shape({ value: PropTypes.string, label: PropTypes.string }),
+            activeNote: PropTypes.number,
+        }),
+    }
 
-        return (        	
-	            <div className="main"> 
-	      			<div className="left">
-						<Navbar searchNotes={this.searchNotes}/>
-						<TagBar />
-						<NotesContainer notes={displayedNotes} responsiveClassName={responsiveNotesContainer}/>						
-					</div>
-					<CurrentNoteBox responsiveClassName={responsiveNoteBox}/>
-	       		</div>      		
-        )
+    state = {
+        searchResults: [],
+        searching: false,
+    }
+
+    searchNotes = (value) => {
+        let searchResults = [];
+        const { notes } = this.props;
+        const regex = new RegExp(`${value}`, 'i');
+        searchResults = notes.filter(curr => regex.test(curr.content) || regex.test(curr.name));
+        this.setState({ searchResults, searching: true });
+    }
+
+    stopSearch = () => this.setState({ searchResults: [], searching: false })
+
+    render() {
+        const { searching, searchResults } = this.state;
+        const { active, notes } = this.props;
+        let displayedNotes;
+        if (searching) {
+            displayedNotes = searchResults;
+        } else if (!searching && active.activeTag.value !== 'allNotes') {
+            displayedNotes = notes.filter(note => note.tags.value === active.activeTag.value);
+        } else {
+            displayedNotes = notes;
+        }
+        const responsiveNoteBox = active.activeNote > 0
+            ? 'full-view currentNoteBox'
+            : 'narrow-view currentNoteBox';
+        const responsiveNotesContainer = active.activeNote > 0
+            ? 'narrow-view notesContainer'
+            : 'full-view notesContainer';
+        return (
+            <div className="main">
+                <div className="left">
+                    <Navbar searchNotes={this.searchNotes} />
+                    <TagBar stopSearch={this.stopSearch} />
+                    <NotesContainer
+                      notes={displayedNotes}
+                      responsiveClassName={responsiveNotesContainer}
+                    />
+                </div>
+                <CurrentNoteBox responsiveClassName={responsiveNoteBox} />
+            </div>
+        );
     }
 }
 
-export default connect( state => {return { notes: arraySort(state.notes), tags: state.tags, active: state.active }})(App)
+export default connect(
+    state => ({
+        notes: arraySort(state.notes),
+        active: state.active,
+    }),
+)(App);

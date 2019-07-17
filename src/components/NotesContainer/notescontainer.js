@@ -1,24 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import NotePreview from './NotePreview/notepreview.js';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import NotePreview from './NotePreview/notepreview';
 
 const NotesContainer = ({ notes, responsiveClassName }) => {
-    
-    let notesArray = notes.map(item => (        
-        <CSSTransition  key={item.index} timeout={300} classNames="fade">
-          <NotePreview  notes={notes} currentNote={item} />
-        </CSSTransition> )); 
-        return (
+    const notesArray = notes.map(item => (
+        <CSSTransition key={item.index} timeout={300} classNames="fade">
+          <NotePreview notes={notes} currentNote={item} />
+        </CSSTransition>
+    ));
+    return (
         <TransitionGroup className={responsiveClassName}>
           {notesArray}
         </TransitionGroup>
-    )
-}
+    );
+};
+
+NotesContainer.defaultProps = {
+    notes: [],
+};
+
 
 NotesContainer.propTypes = {
-    notes: PropTypes.array      
-}
-
+    notes: PropTypes.arrayOf(PropTypes.object),
+    responsiveClassName: PropTypes.string.isRequired,
+};
 
 export default NotesContainer;

@@ -3,94 +3,96 @@
 
 .notePreview {
     display: grid;
-    grid-template-columns: 30% auto;
-    border-bottom: $border;    
+    border-bottom: $border;
+    background-color: white;
     list-style-type: none;
     user-select: none;
-    background-color: white;
+    grid-template-columns: 30% auto;
+
     &:hover {
-        background-color:  $color-back;
+        background-color: $color-back;
 
     }
-    
+
     .metaPreview {
+        display: grid;
         color: $color-bold;
-        display: grid;   
-        
+
         text-align: center;
 
         .datePreviewMax {
             margin-left: 10px;
-   
+
             h2 {
-                font-size: 30px;
-                margin: 0px;
                 width: 100%;
                 height: 50px;
+                margin: 0px;
                 padding-top: 10px;
+                font-size: 30px;
             }
 
             h3 {
-                font-size: 15px;
-                margin: 0px;
                 width: 100%;
                 height: 20px;
+                margin: 0px;
+                font-size: 15px;
             }
 
             h4 {
-                font-size: 15px;
-                margin: 0px;
                 width: 100%;
                 height: 20px;
+                margin: 0px;
+                font-size: 15px;
             }
         }
     }
-   
+
     .noteContentPreview {
+        max-width: 300px;
         padding-top: 15px;
         padding-left: 25px;
-        max-width: 230px;
-        
-            h2 {
-                @include multiLineEllipsis($lineHeight: 18px, $lineCount: 1.0);
-                color: $color-bold;
-                font-size: 18px;
-                height: 25%;        
-                width: 90%;              
-              
-                  &:before {
-                    content: '';
-                    position: absolute;
-                    right: 0;
-                    bottom: 0;
-                }            
-            }
-            
-            h5 {
-                height: auto;
-                display: block;
-                float: right;
-                color: $color-medium;
-                padding-right: 10px;
-            }
 
-            p {
-                @include multiLineEllipsis($lineHeight: 12px, $lineCount: 3.0);
-                width: 95%;                 
-                height: 60%;
-                color: $color-medium;
-                margin: 0 auto;
-                margin-left: 0px;
-                padding-top: 10px;
-            }     
+        h2 {
+            @include multiLineEllipsis($lineHeight: 18px, $lineCount: 1.0);
+            width: 90%;
+            height: 25%;
+            color: $color-bold;
+            font-size: 18px;
+
+            &:before {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                content: '';
+            }
+        }
+
+        h5 {
+            display: block;
+            float: right;
+            height: auto;
+            padding-top: 3px;
+            padding-right: 10px;
+            color: $color-medium;
+        }
+
+        p {
+            @include multiLineEllipsis($lineHeight: 12px, $lineCount: 3.0);
+            width: 95%;
+            height: 60%;
+            margin: 0 auto;
+            margin-left: 0px;
+            padding-top: 10px;
+            color: $color-medium;
+        }
     }
 }
 
 
-@media (min-width: 800px ) and (max-width: 1600px) {
+@media (min-width: 800px) and (max-width: 1600px) {
 
     .noteContentPreview {
-         min-width: 100px;
-         max-width: 150px;
+        min-width: 100px;
+        max-width: 150px;
     }
 }

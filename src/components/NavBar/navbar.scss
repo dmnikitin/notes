@@ -1,22 +1,22 @@
 @import '../../sass/variables.scss';
 
 .navbar {
-        
-    height: 50px;
     display: grid;
-    grid-template-columns: 80% 20%;
-    font-family: "Times New Roman", Times, serif;
+
+    height: 50px;
     background: white;
+    font-family: "Times New Roman", Times, serif;
+    grid-template-columns: 80% 20%;
 
     .search-container {
 
         form {
+            display: grid;
+            position: relative;
 
             height: 100%;
-            position: relative;
-            display: grid;
-            padding-left: 20px;
             padding-top: 4px;
+            padding-left: 15px;
 
             input {
                 border: none;
@@ -25,7 +25,7 @@
 
             .search-button {
                 padding-top: 14px;
-                padding-left: 30%;
+                padding-left: 5px;
             }
 
             span {
@@ -65,22 +65,23 @@
     }
 
     .full-form {
-         grid-template-columns: 10% 80%;
+        grid-template-columns: 25px auto;
     }
 
     .clicked-form {
-         grid-template-columns: 1% 99%;
+        grid-template-columns: 1% 99%;
     }
 
 
     #addnote {
+        position: relative;
         top: 17px;
         width: 20%;
-        margin: 0 auto;
-        position: relative;
         height: 25px;
-        font-size: 17px;
+        margin: 0 auto;
         color: $color-bold;
+        font-size: 17px;
+
         &:hover {
             color: gold;
         }
@@ -89,9 +90,14 @@
 
 
 @keyframes grid {
-  0%   {grid-template-columns: 5% 95%}
-  // 25%  {grid-template-columns: 4% 92%}
-  // 50%  {grid-template-columns: 3% 94%}
-  // 75%  {grid-template-columns: 2% 97%}
-  100% {grid-template-columns: 1% 99%}
+    0% {
+        grid-template-columns: 5% 95%
+    }
+
+    // 25%  {grid-template-columns: 4% 92%}
+    // 50%  {grid-template-columns: 3% 94%}
+    // 75%  {grid-template-columns: 2% 97%}
+    100% {
+        grid-template-columns: 1% 99%
+    }
 }

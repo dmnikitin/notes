@@ -5,44 +5,43 @@
 @import './NoteInfoBar/noteinfobar';
 
 .note {
-   
-    width: 100%;
     display: grid;
+    width: 100%;
+    background: $color-back;
     grid-template-areas:
         'meta meta'
-        'name name'  
-        'markdown markdown'      
-        'content content'       
+        'name name'
+        'markdown markdown'
+        'content content'
         'info info';
-    grid-template-rows:  52px 96px 50px 700px 52px ;
-    background: $color-back;
-    grid-auto-flow: row;     
+    grid-template-rows: 52px 98px 50px 700px 52px;
+    grid-auto-flow: row;
+
+    @media (min-width: 800px) {
+        border-left: $border;
+    }
 
     .note-name {
         @include textarea(name, 50px, 0px, 100px);
-        border: $border;
-        border-top: none;
-        border-right: none;    
+        border-bottom: $border;
     }
 
     .note-content {
         @include textarea(content, 25px, 0px, 700px);
-        border: $border;
-        border-right: none;
+        border: $border none;
         font-size: 20px;
-        
+
         div {
             height: 20px;
         }
 
-        strong, b {            
+        strong,
+        b {
             font-weight: bold;
         }
+
         i {
             font-style: italic;
         }
     }
-
-
 }
-

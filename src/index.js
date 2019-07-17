@@ -1,21 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
-import { store } from './store/store.js';
 import { Provider } from 'react-redux';
-import App from './app.js';
-import { saveToLocalStorage } from './helpers/localStorageHandler.js'
+import store from './store/store';
+import App from './app';
+import { saveToLocalStorage } from './helpers/localStorageHandler';
 
-export default class Root extends Component {
-	render() {
-		return (
-			<Provider store={store}>
-				<App />
-			</Provider>
-		);
-	}
-}
+/* globals document */
 
-store.subscribe(()=>{
-	saveToLocalStorage(store.getState())
-})
+const Root = () => (
+    <Provider store={store}>
+      <App />
+    </Provider>
+);
+
+export default Root;
+
+store.subscribe(() => saveToLocalStorage(store.getState()));
+
 render(<Root />, document.getElementById('app'));

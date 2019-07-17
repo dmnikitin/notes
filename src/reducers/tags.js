@@ -1,17 +1,13 @@
-import { ADD_TAG } from '../store/variables.js';
+import { ADD_TAG } from '../store/variables';
 
-const TagsReducer =  (tagsState = [], action) => {
-
-    const {type, payload} = action
-    
+const TagsReducer = (tagsState = [], action) => {
+    const { type, payload } = action;
     switch (type) {
-
-        case ADD_TAG: return [...tagsState, payload]
-      
-      	
+        case ADD_TAG:
+            return [...tagsState, payload];
+        default:
+            return tagsState;
     }
+};
 
-    return tagsState
-}
-
-export { TagsReducer }
+export default TagsReducer;

@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ToolbarMeta from './ToolbarMeta/toolbarMeta.js';
-import ToolbarMarkdown from './ToolbarMarkdown/toolbarMarkdown.js';
-import NoteInfoBar from './NoteInfoBar/noteinfobar.js';
-import ContentEditable from './contentEditable.js';
-import { today } from '../../../helpers/helpers.js';
-import { changeNote } from '../../../store/ac.js'; 
+import ToolbarMeta from './ToolbarMeta/toolbarMeta';
+import ToolbarMarkdown from './ToolbarMarkdown/toolbarMarkdown';
+import NoteInfoBar from './NoteInfoBar/noteinfobar';
+import ContentEditable from './contentEditable';
+import { today } from '../../../helpers/helpers';
+import { changeNote } from '../../../store/ac';
 
 class Note extends React.Component {
-
-   static propTypes = {
-        notes: PropTypes.array,
+    static propTypes = {
+        notes: PropTypes.arrayOf(PropTypes.object).isRequired,
         currentNote: PropTypes.shape({
             name: PropTypes.string,
             content: PropTypes.string,
@@ -19,52 +18,56 @@ class Note extends React.Component {
             priority: PropTypes.bool,
             location: PropTypes.string,
             date: PropTypes.string,
-            index: PropTypes.number
-        }),      
-        onChangeNote: PropTypes.func
+            index: PropTypes.number,
+        }).isRequired,
+        onChangeNote: PropTypes.func.isRequired,
     }
 
-    state = { name: "", content: "" }
+    state = { name: '', content: '' }
 
-    componentWillMount = () => this.setState({ name: this.props.currentNote.name, content: this.props.currentNote.content })
-    
+    componentWillMount = () => {
+        const { currentNote } = this.props;
+        this.setState({ name: currentNote.name, content: currentNote.content });
+    }
+
     handleChange = (e, index) => {
-        const {notes, currentNote} = this.props;
-        const notePositionInStoreArray = notes.findIndex((e) => e.index === currentNote.index);
-		let change = currentNote;	
-		if (index === "name") {
-		    this.setState({name: e.data});
+        const { notes, currentNote, onChangeNote } = this.props;
+        const notePositionInStoreArray = notes.findIndex(note => note.index === currentNote.index);
+        const change = currentNote;
+        if (index === 'name') {
+            this.setState({ name: e.data });
             change.name = e.data;
-        } 
-		else if (index === "content") {
-			this.setState({content: e.data});
-			change.content = e.data;
-		}  
-        change.edited = today;        
-        this.props.onChangeNote(change, notePositionInStoreArray);
+        } else if (index === 'content') {
+            this.setState({ content: e.data });
+            change.content = e.data;
+        }
+        change.edited = today;
+        onChangeNote(change, notePositionInStoreArray);
     }
 
-    render() {       
-        return (               
-            <div className="note">                
-                <ToolbarMeta currentNote={this.props.currentNote} />
-    			<div className="note-name"><ContentEditable edited="name" currentNote={this.props.currentNote} html={this.props.currentNote.name} onChange={this.handleChange}/></div>
-   				<div className="note-content"><ContentEditable edited="content" currentNote={this.props.currentNote} html={this.props.currentNote.content  } onChange={this.handleChange}/></div>
-	            <ToolbarMarkdown currentNote={this.props.currentNote} />
-                <NoteInfoBar currentNote={this.props.currentNote} />
+    render() {
+        const { currentNote } = this.props;
+        return (
+            <div className="note">
+                <ToolbarMeta currentNote={currentNote} />
+                <div className="note-name">
+                    <ContentEditable edited="name" currentNote={currentNote} html={currentNote.name} onChange={this.handleChange} />
+                </div>
+                <div className="note-content">
+                    <ContentEditable edited="content" currentNote={currentNote} html={currentNote.content} onChange={this.handleChange} />
+                </div>
+                <ToolbarMarkdown currentNote={currentNote} />
+                <NoteInfoBar currentNote={currentNote} />
             </div>
-        )
+        );
     }
 }
 
-
 export default connect(
-    state => {     
-        return {
-            notes: state.notes
-    }},
-    dispatch => ({    
-        onChangeNote: (value, noteIndex) => {
-            dispatch(changeNote(value, noteIndex))
-    }})
+    state => ({
+        notes: state.notes,
+    }),
+    dispatch => ({
+        onChangeNote: (value, noteIndex) => dispatch(changeNote(value, noteIndex)),
+    }),
 )(Note);
