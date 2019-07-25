@@ -5,7 +5,7 @@ const NoteInfoBar = ({ currentNote }) => {
     const edited = currentNote.edited
         ? (
             <h2>
-                Last changed:
+                Last changed ...
                 {currentNote.edited}
             </h2>
         )
@@ -15,7 +15,7 @@ const NoteInfoBar = ({ currentNote }) => {
         <div className="noteInfoBar">
             <div className="note-edited-date">{edited}</div>
             <h2 className="note-date">
-                Note created :
+                Note created ...
                 {currentNote.date}
             </h2>
             <h2 className="note-location">{currentNote.location}</h2>

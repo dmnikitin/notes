@@ -17,6 +17,10 @@
     grid-template-rows: 52px 98px 50px 700px 52px;
     grid-auto-flow: row;
 
+    @media (max-width: 800px) {
+        grid-template-rows: 52px 98px 50px minmax(200px, 300px) 52px;
+    }
+
     @media (min-width: 800px) {
         border-left: $border;
     }
@@ -27,9 +31,13 @@
     }
 
     .note-content {
-        @include textarea(content, 25px, 0px, 700px);
+        @include textarea(content, 25px, 0px, auto);
         border: $border none;
         font-size: 20px;
+
+        @media (max-width: 800px) {
+            border-bottom: $border;
+        }
 
         div {
             height: 20px;
