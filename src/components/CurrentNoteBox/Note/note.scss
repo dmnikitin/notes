@@ -1,6 +1,5 @@
 @import '../../../sass/mixins';
 @import '../../../sass/variables';
-@import './ToolbarMarkdown/toolbarMarkdown';
 @import './ToolbarMeta/toolbarMeta';
 @import './NoteInfoBar/noteinfobar';
 
@@ -10,15 +9,14 @@
     background: $color-back;
     grid-template-areas:
         'meta meta'
-        'name name'
-        'markdown markdown'
-        'content content'
-        'info info';
-    grid-template-rows: 52px 98px 50px 700px 52px;
+        'info info'
+        'name name'        
+        'content content';
+    grid-template-rows: 52px 48px 98px 700px;
     grid-auto-flow: row;
 
     @media (max-width: 800px) {
-        grid-template-rows: 52px 98px 50px minmax(200px, 300px) 52px;
+        grid-template-rows: 52px 52px 65px minmax(200px, 300px);       
     }
 
     @media (min-width: 800px) {
@@ -32,7 +30,7 @@
 
     .note-content {
         @include textarea(content, 25px, 0px, auto);
-        border: $border none;
+        border-top: $border;
         font-size: 20px;
 
         @media (max-width: 800px) {

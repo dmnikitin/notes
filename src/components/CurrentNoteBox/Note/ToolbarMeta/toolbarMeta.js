@@ -11,7 +11,15 @@ import {
     makeNoteActive,
 } from '../../../../store/ac';
 
-const ToolbarMeta = ({ notes, tags, currentNote, onChangeNote, onDeleteNote, onAddTag, onToggleDisplay }) => {
+const ToolbarMeta = ({
+    notes,
+    tags,
+    currentNote,
+    onChangeNote,
+    onDeleteNote,
+    onAddTag,
+    onToggleDisplay,
+    }) => {
     const notePositionInStoreArray = notes.findIndex(e => e.index === currentNote.index);
     const change = currentNote;
     change.edited = today;

@@ -1,17 +1,14 @@
+@import '../../../../sass/variables.scss';
+
 .noteInfoBar {
-    display: grid;
-    padding-top: 15px;
-    border: none;
+  
+    border-bottom: $border;
     background-color: white;
     grid-area: info;
-    grid-template-columns: 25% 25% 25%;
-
-    @media (max-width: 800px) {
-        // grid-template-columns: 0;
-        // grid-template-rows: 25% 25% 25%;
-        grid-template-columns: 40% 40% 20%;
-    }
-
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 5px;
+       
     h2,
     button {
         padding-left: 10px;

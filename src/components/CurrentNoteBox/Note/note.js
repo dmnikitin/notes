@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ToolbarMeta from './ToolbarMeta/toolbarMeta';
-import ToolbarMarkdown from './ToolbarMarkdown/toolbarMarkdown';
 import NoteInfoBar from './NoteInfoBar/noteinfobar';
 import ContentEditable from './contentEditable';
 import { today } from '../../../helpers/helpers';
@@ -50,14 +49,13 @@ class Note extends React.Component {
         return (
             <div className="note">
                 <ToolbarMeta currentNote={currentNote} />
+                <NoteInfoBar currentNote={currentNote} />
                 <div className="note-name">
                     <ContentEditable edited="name" currentNote={currentNote} html={currentNote.name} onChange={this.handleChange} />
                 </div>
                 <div className="note-content">
                     <ContentEditable edited="content" currentNote={currentNote} html={currentNote.content} onChange={this.handleChange} />
                 </div>
-                <ToolbarMarkdown currentNote={currentNote} />
-                <NoteInfoBar currentNote={currentNote} />
             </div>
         );
     }
