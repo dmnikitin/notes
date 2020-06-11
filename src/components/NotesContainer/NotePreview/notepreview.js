@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -29,14 +31,15 @@ class NotePreview extends React.Component {
     state = { displayedContent: '' }
 
     componentWillMount = () => {
-        const displayed = this.markdownToNormal();
+        const { currentNote } = this.props;
+        const displayed = this.markdownToNormal(currentNote.content);
         this.setState({ displayedContent: displayed });
     }
 
     componentWillReceiveProps = (nextProps) => {
         const { displayedContent } = this.state;
-        const displayed = this.markdownToNormal();
         if (nextProps.currentNote.content !== displayedContent) {
+            const displayed = this.markdownToNormal(nextProps.currentNote.content);
             this.setState({ displayedContent: displayed });
         }
         if (nextProps.currentNote.content === '') {
@@ -44,11 +47,11 @@ class NotePreview extends React.Component {
         }
     }
 
-    markdownToNormal = () => {
-        const { currentNote } = this.props;
-        const markdown = /(<\/?strong?[^>]*>)|(<\/?i[^>]*>)|(<\/?u[^>]*>)|(<\/?div[^>]*>)|(<\/?strong[^>]*>)|(<\/?b[^>]*>)/g;
-        const html = currentNote.content.replace(markdown, '');
-        return html;
+    markdownToNormal = (str) => {
+        // eslint-disable-next-line no-undef
+        const txt = document.createElement('textarea');
+        txt.innerHTML = str;
+        return txt.value;
     }
 
     displayNote = () => {
