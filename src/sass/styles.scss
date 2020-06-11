@@ -19,6 +19,14 @@ body {
     background-color: $color-back
 }
 
+button {
+    border: none;
+    background-color: transparent;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
 .main {
     display: grid;
     height: 950px;
