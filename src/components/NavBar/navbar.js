@@ -5,8 +5,6 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { today } from '../../helpers/helpers';
 import { addNote, makeNoteActive } from '../../store/ac';
 
-let location;
-
 /* globals document fetch */
 
 class Navbar extends React.Component {
@@ -18,26 +16,30 @@ class Navbar extends React.Component {
 
     state = { clicked: false }
 
-    componentDidMount() {
-        const fetchRequest = () => {
-            const url = 'http://ip-api.com/json';
-            const getLocation = (value) => {
-                location = `${value.city}, ${value.country}`;
-            };
-            fetch(url)
-                .then((response) => {
-                    if (response.ok) {
-                        return response.json();
-                    }
-                    throw new Error('failed');
-                }, networkError => console.log(networkError.message))
-                .then(jsonResponse => getLocation(jsonResponse));
-        };
-        fetchRequest();
+    location = '';
+
+    async componentDidMount() {
+        const geoData = await this.fetchRequest();
+        this.getLocation(geoData);
         document.addEventListener('mousedown', this.handleClickOutside);
     }
 
-    componentWillUnmount = () => document.removeEventListener('mousedown', this.handleClickOutside)
+    componentWillUnmount = () => document.removeEventListener('mousedown', this.handleClickOutside);
+
+    fetchRequest = async () => {
+        const url = 'https://ipapi.co/json/';
+        try {
+            const result = await fetch(url);
+            const data = await result.json();
+            return data;
+        } catch (e) {
+            throw new Error('couldnt detect IP adress');
+        }
+    }
+
+    getLocation = (value) => {
+        this.location = `${value.city}, ${value.country_name}`;
+    }
 
     addNoteHandler = () => {
         const { onAddNote, onToggleDisplay } = this.props;
@@ -45,7 +47,7 @@ class Navbar extends React.Component {
             name: 'Default note name',
             content: 'Default note content',
             priority: false,
-            location,
+            location: this.location,
             date: today,
             index: Date.now(),
             tags: {
@@ -77,7 +79,7 @@ class Navbar extends React.Component {
         const searchButton = !clicked
             ? (
                 <CSSTransition timeout={300} classNames="fade">
-                    <div className="fa fa-search" onClick={this.focused} />
+                    <button type="button" className="fa fa-search" onClick={this.focused} />
                 </CSSTransition>
             )
             : null;
@@ -93,7 +95,7 @@ class Navbar extends React.Component {
                         <input type="text" placeholder="Search.." ref={this.setWrapperRef} onChange={this.findNotes} onClick={this.focused} />
                     </form>
                 </div>
-                <div id="addnote" className="fa fa-plus" onClick={this.addNoteHandler} />
+                <button type="button" id="addnote" className="fa fa-plus" onClick={this.addNoteHandler} />
             </div>
         );
     }
